@@ -27,8 +27,12 @@ public class GcmRegistrationService extends IntentService {
         Resources resources = getApplication().getResources();
         String packageName = getApplication().getPackageName();
 
-        int resourceId = resources.getIdentifier("gcm_defaultSenderId", "string", packageName);
-        String projectNumber = getString(resourceId);
+        int resourceId = resources.getIdentifier("gcm_defaultSenderId", "string", packageName);        
+        String projectNumber = null;
+        try {
+            projectNumber = getString(resourceId);
+        }
+        catch (Exception ex){}
         Log.i(TAG, "projectNumber: " + projectNumber);
 
         if (projectNumber == null) {
