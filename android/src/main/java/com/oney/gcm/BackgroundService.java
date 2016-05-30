@@ -8,8 +8,6 @@ import android.util.Log;
 import com.facebook.react.LifecycleState;
 import com.facebook.react.ReactInstanceManager;
 
-import java.lang.reflect.Field;
-
 import io.neson.react.notification.NotificationPackage;
 
 public class BackgroundService extends Service {
@@ -32,7 +30,7 @@ public class BackgroundService extends Service {
                 .addPackage(new MainReactPackage())
                 .addPackage(new GcmPackage(intent))
                 .addPackage(new NotificationPackage(null))
-                .setUseDeveloperSupport(getBuildConfigDEBUG())
+//                .setUseDeveloperSupport(getBuildConfigDEBUG())
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .build();
         mReactInstanceManager.createReactContextInBackground();
@@ -49,27 +47,27 @@ public class BackgroundService extends Service {
         mReactInstanceManager = null;
     }
 
-    private Class getBuildConfigClass() {
-        try {
-            String packageName = getPackageName();
-
-            return Class.forName(packageName + ".BuildConfig");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    private boolean getBuildConfigDEBUG() {
-        Class klass = getBuildConfigClass();
-        for (Field f : klass.getDeclaredFields()) {
-            if (f.getName().equals("DEBUG")) {
-                try {
-                    return f.getBoolean(this);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return false;
-    }
+//    private Class getBuildConfigClass() {
+//        try {
+//            String packageName = getPackageName();
+//
+//            return Class.forName(packageName + ".BuildConfig");
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+//    private boolean getBuildConfigDEBUG() {
+//        Class klass = getBuildConfigClass();
+//        for (Field f : klass.getDeclaredFields()) {
+//            if (f.getName().equals("DEBUG")) {
+//                try {
+//                    return f.getBoolean(this);
+//                } catch (IllegalAccessException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//        return false;
+//    }
 }
