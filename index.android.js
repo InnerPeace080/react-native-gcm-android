@@ -46,6 +46,9 @@ class GcmAndroid {
   static requestPermissions() {
     GcmModule.requestPermissions();
   }
+  static joinTopic(token,topic){
+    GcmModule.joinTopic(token,topic);
+  }
   static stopService() {
     GcmModule.stopService();
   }
