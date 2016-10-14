@@ -162,6 +162,16 @@ public class GcmModule extends ReactContextBaseJavaModule implements LifecycleEv
         getReactApplicationContext().startService(new Intent(getReactApplicationContext(), GcmRegistrationService.class));
     }
     @ReactMethod
+    public void joinTopic(String token , String topic) {
+        GcmPubSub pubSub = GcmPubSub.getInstance(getReactApplicationContext());
+        try {
+            pubSub.subscribe(token, "/topics/" + topic, null);
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    @ReactMethod
     public void stopService() {
         if (mIntent != null) {
             new android.os.Handler().postDelayed(new Runnable() {
