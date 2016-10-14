@@ -7,22 +7,29 @@ import android.util.Log;
 
 import com.facebook.react.LifecycleState;
 import com.facebook.react.ReactInstanceManager;
+import com.facebook.react.ReactRootView;
 
 import io.neson.react.notification.NotificationPackage;
 
 public class BackgroundService extends Service {
     private static final String TAG = "BackgroundService";
     private ReactInstanceManager mReactInstanceManager;
+    private ReactRootView mReactRootView;
 
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
 
+    protected ReactRootView createRootView() {
+        return new ReactRootView(this);
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand");
 
+//        mReactRootView = new ReactRootView(this);
         mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
                 .setBundleAssetName("index.android.bundle")
@@ -32,7 +39,10 @@ public class BackgroundService extends Service {
                 .addPackage(new NotificationPackage(null))
 //                .setUseDeveloperSupport(getBuildConfigDEBUG())
                 .setInitialLifecycleState(LifecycleState.RESUMED)
+                .setUseOldBridge(true)
                 .build();
+
+//        mReactRootView.startReactApplication(mReactInstanceManager, "GCMHandle", null);
         mReactInstanceManager.createReactContextInBackground();
 
         return START_NOT_STICKY;
@@ -42,8 +52,7 @@ public class BackgroundService extends Service {
     public void onDestroy() {
         Log.d(TAG, "onDestroy");
         super.onDestroy();
-        mReactInstanceManager.onPause();
-        mReactInstanceManager.onDestroy();
+        mReactInstanceManager.destroy();
         mReactInstanceManager = null;
     }
 
