@@ -56,6 +56,14 @@ class GcmAndroid {
     GcmModule.createNotification(infos);
   }
 
+  static applyBadgeCount(count){
+    GcmModule.applyBadgeCount(count);
+  }
+
+  static removeBadgeCount(){
+    GcmModule.removeBadgeCount();
+  }
+
   static abandonPermissions() {
   }
 

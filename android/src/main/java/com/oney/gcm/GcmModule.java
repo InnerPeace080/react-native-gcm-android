@@ -1,45 +1,42 @@
 package com.oney.gcm;
 
-import android.app.Activity;
-
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
-import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.google.android.gms.gcm.GcmPubSub;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import org.json.*;
 
-import android.preference.PreferenceManager;
-import android.util.Log;
-
-import android.content.Context;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.content.res.Resources;
-import android.app.PendingIntent;
-import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.media.RingtoneManager;
-import android.net.Uri;
+import me.leolin.shortcutbadger.ShortcutBadger;
 
 public class GcmModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
     private final static String TAG = GcmModule.class.getCanonicalName();
@@ -250,6 +247,16 @@ public class GcmModule extends ReactContextBaseJavaModule implements LifecycleEv
         notif.defaults |= Notification.DEFAULT_LIGHTS;
 
         notificationManager.notify(0, notif);
+    }
+
+    @ReactMethod
+    public void applyBadgeCount (int badgeCount){
+        ShortcutBadger.applyCount(getReactApplicationContext(), badgeCount);
+    }
+
+    @ReactMethod
+    public void removeBadgeCount(){
+        ShortcutBadger.removeCount(getReactApplicationContext());
     }
 
     @Override
