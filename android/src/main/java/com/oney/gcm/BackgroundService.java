@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.facebook.react.LifecycleState;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactRootView;
+import com.facebook.react.common.LifecycleState;
 
 import io.neson.react.notification.NotificationPackage;
 
@@ -36,10 +36,10 @@ public class BackgroundService extends Service {
                 .setJSMainModuleName("index.android")
                 .addPackage(new MainReactPackage())
                 .addPackage(new GcmPackage(intent))
-                .addPackage(new NotificationPackage(null))
+                .addPackage(new NotificationPackage())
 //                .setUseDeveloperSupport(getBuildConfigDEBUG())
                 .setInitialLifecycleState(LifecycleState.RESUMED)
-                .setUseOldBridge(true)
+//                .setUseOldBridge(true)
                 .build();
 
 //        mReactRootView.startReactApplication(mReactInstanceManager, "GCMHandle", null);
