@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactRootView;
-import com.facebook.react.common.LifecycleState;
+import com.facebook.react.LifecycleState;
 
 import io.neson.react.notification.NotificationPackage;
 
@@ -37,7 +37,7 @@ public class BackgroundService extends Service {
                 .addPackage(new MainReactPackage())
                 .addPackage(new GcmPackage(intent))
                 .addPackage(new NotificationPackage())
-//                .setUseDeveloperSupport(getBuildConfigDEBUG())
+               .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
 //                .setUseOldBridge(true)
                 .build();
