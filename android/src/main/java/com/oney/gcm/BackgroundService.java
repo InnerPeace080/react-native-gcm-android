@@ -37,9 +37,9 @@ public class BackgroundService extends Service {
                 .addPackage(new MainReactPackage())
                 .addPackage(new GcmPackage(intent))
                 .addPackage(new NotificationPackage())
-               .setUseDeveloperSupport(BuildConfig.DEBUG)
+                .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
-               .setUseOldBridge(true)
+                .setUseOldBridge(true)
                 .build();
 
 //        mReactRootView.startReactApplication(mReactInstanceManager, "GCMHandle", null);

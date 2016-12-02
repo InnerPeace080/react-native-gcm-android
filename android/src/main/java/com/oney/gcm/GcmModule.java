@@ -28,6 +28,8 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.android.gms.gcm.GcmPubSub;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +50,6 @@ public class GcmModule extends ReactContextBaseJavaModule implements LifecycleEv
         mIntent = intent;
 
         Log.d(TAG, "mIntent is null: " + (mIntent == null));
-
         if (getReactApplicationContext().hasCurrentActivity()) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(reactContext);
             SharedPreferences.Editor editor = preferences.edit();
@@ -77,6 +78,7 @@ public class GcmModule extends ReactContextBaseJavaModule implements LifecycleEv
             Log.d(TAG, "bundleString: " + bundleString);
             constants.put("launchNotification", bundleString);
         }
+        constants.put("fcmToken", FirebaseInstanceId.getInstance().getToken());
         return constants;
     }
 
@@ -163,6 +165,15 @@ public class GcmModule extends ReactContextBaseJavaModule implements LifecycleEv
         GcmPubSub pubSub = GcmPubSub.getInstance(getReactApplicationContext());
         try {
             pubSub.subscribe(token, "/topics/" + topic, null);
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    @ReactMethod
+    public void joinTopicFcm(String token , String topic) {
+        try {
+            FirebaseMessaging.getInstance().subscribeToTopic(topic);
         }
         catch(Exception ex){
             ex.printStackTrace();
