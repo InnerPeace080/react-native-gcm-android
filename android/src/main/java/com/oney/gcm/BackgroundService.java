@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactRootView;
-import com.facebook.react.LifecycleState;
+import com.facebook.react.common.LifecycleState;
 
 import io.neson.react.notification.NotificationPackage;
 
