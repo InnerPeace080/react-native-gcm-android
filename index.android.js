@@ -13,6 +13,7 @@ var NOTIF_REGISTER_EVENT = 'remoteNotificationsRegistered';
 var NOTIF_REGISTER_ERROR_EVENT = 'remoteNotificationsRegisteredError';
 
 class GcmAndroid {
+  static module = GcmModule
   static addEventListener(type: string, handler: Function) {
     var listener;
     if (type === 'notification') {
