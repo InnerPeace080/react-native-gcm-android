@@ -19,10 +19,10 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //compile 'com.facebook.react:react-native:0.17.+'
     compile project(':ReactAndroid')
-    compile 'com.google.android.gms:play-services-gcm:9.4.0'
+    compile 'com.google.android.gms:play-services-gcm:10.0.1'
     compile 'com.android.support:appcompat-v7:23.0.0'
-    compile 'com.google.firebase:firebase-messaging:9.4.0'
-    compile 'com.google.firebase:firebase-core:9.4.0'
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
+    compile 'com.google.firebase:firebase-core:10.0.1'
     compile project(':react-native-system-notification')
     compile 'me.leolin:ShortcutBadger:1.1.10@aar'
 }
